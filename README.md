@@ -1,2 +1,28 @@
-# robot
-a robot that help me dig up infomations in the world that I should like
+robot
+=====
+一切都基于你的兴趣：一个智能的信息推荐机器人
+
+它只做一件事情: 挖掘所有用户常逛的站点信息，智能筛选用户感兴趣的信息，供用户阅读。
+
+## 功能
+
+1. 获取信息来源: 抓取各内容产生网站的站点数据
+2. 数据挖掘: 根据用户兴趣爱好挖掘用户感兴趣的文章
+3. 超棒的阅读体验: Inbox一样的体验。只关注需要关注的内容。
+
+## 设计稿
+
+![](http://7xqevh.com1.z0.glb.clouddn.com/robot-robot-design.png)
+
+## 里程碑
+
+1. *v0.1.0*: 实现web端(前后端), 只做信息展示
+2. *v0.1.1*: 实现1-2个网站的抓取逻辑, 配合web端，做到能每日推荐
+3. *v0.1.2*: 实现web端的done/dislike/mark功能
+4. *v0.1.3*: 实现推荐算法
+
+### 计划
+
+## 贡献者
+
+
