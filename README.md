@@ -21,8 +21,38 @@ robot
 3. *v0.1.2*: 实现web端的done/dislike/mark功能
 4. *v0.1.3*: 实现推荐算法
 
-### 计划
+### 第一步计划
+
+#### Web页面
+
+[@monklof][mk]
+
+目标: 2月5号之前实现一个基本的Web服务。
+涉及模块: HTTP API Server & Front End(Web)模块。
+
+#### 抓取服务
+
+[@frostpeng][frost]
+
+目标: 1月31号完成第一版基础的爬虫开发（针对 ruby-china.com 和 v2ex.com）。
+涉及模块: Web Spider
+
+#### 推荐算法
+
+[@lyerox][lyx]
+
+目标: 1月31号对实现方式做一些简单的调研，弄明白推荐的基本原理，和涉及的知识调研，能给出接下来一个较长阶段内的方向。
+涉及模块: Data Minging Robot
 
 ## 贡献者
+
+* [@frostpeng][frost]
+* [@lyerox][lyx]
+* [@monklof][mk]
+
+[frost]: https://github.com/frostpeng
+[lyx]: https://github.com/lyerox
+[mk]: https://github.com/monklof
+
 
 
