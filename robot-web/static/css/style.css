@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+body {
+  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+}
+
+a:link {
+  color: #005585;
+  text-decoration: none;
+}
+a:visited {
+  color: #485270;
+}
+a:hover {
+  color: #b83800;
+  text-decoration: underline;
+}
+
+#main {
+  text-align: center;
+}
+
+
+img.logo {
+    width: 160px;
+    margin: 40px auto 20px;
+    display: block;
+}
+
+p.note {
+    text-align: center;
+}
+
+.switch-nav-bar li {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+ul.switch-nav-bar {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 150px;
+    /* padding: 0; */
+}
+
+.panel-box {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-logout-box input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1em .8em;
+    border: 0;
+    border-top: 1px solid #e8e8e8;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    line-height: 19px;
+    color: #555;
+    vertical-align: middle;
+    /* font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif; */
+}
+
+.login-logout-box button {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    background-color: #000000;
+    color: white;
+    line-height: 41px;
+}
+
+.login-logout-box form {
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+}
+
+.button-wrapper.command {
+    margin-top: 18px;
+}
+
+body {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.7;
+    font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif;
+    background: #f7fafc;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.switch-nav-bar a {
+    line-height: 35px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #858585;
+}
+
+.switch-nav-bar a.active {
+    color: #000000;
+    padding-bottom: 4px;
+    border-bottom: 3px solid;
+    font-weight: bolder;
+}
+
+.switch-nav-bar a:hover {
+    text-decoration: none;
+    color: #858585;
+    opacity: 1;
+}
+
+a:focus, a:visited, a:active, a:hover {
+    text-decoration: none;
+    box-shadow: none;
+}
+
+input:focus, button:focus {
+    outline: none !important;
+}
+
+.tips {
+    margin: 5px 0;
+    font-weight: bold;
+}

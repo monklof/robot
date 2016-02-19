@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+		content="width=device-width, initial-scale=1.0" />
+  {% block head-meta%} {%endblock%}
+  <title>{% block title %}XBot - 一个懂你的信息聚合机器人{% endblock %}</title>
+  <link rel="icon" href="/static/images/zuolo-icon-32px.png">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  {% block head-css%}{%endblock%}
+</head>
+<body>
+  {% block content %}{% endblock %}
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script>
+   if (!console){
+     console = Object();
+     console.log = function(){};
+   }
+   
+   $.fn.show2 = function() {
+     $(this).prop("hidden", false);
+   };
+   $.fn.hide2 = function() {
+     console.log("hide2");
+     console.log(this);
+     $(this).prop("hidden", true);
+   };
+  </script>
+  {% block tail-js%}{% endblock%}
+</body>
+</html>
