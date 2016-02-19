@@ -18,7 +18,7 @@ DBSession = sessionmaker(bind=engine)
 class Article(MapBase):
 	__tablename__ = 'v2exArticle'
 	art_id = Column(Integer, primary_key=True)
-	art_url=Column(String(300), nullable=False,unique=True)
+	art_url=Column(String(300), nullable=False)
 	title=Column(Text,nullable=False)
 	author=Column(String(200), nullable=False)
 	author_url=Column(String(200), nullable=True)
