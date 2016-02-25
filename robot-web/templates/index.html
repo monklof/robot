@@ -1,0 +1,65 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="body" id="">
+    <div class="panel-box" id="">
+      <header class="header-box" id="">
+        <div class="robot-title">
+          <img class="logo" src="/static/images/spike_bang.jpg" alt="robot" />
+          <p class="note">一个懂你的信息速递机器人</p>
+        </div>
+      </header>
+      <div class="login-logout-box">
+        <ul class="switch-nav-bar" id="switch-nav-bar">
+          <li><a href="#signup" class="tab active" data-target="signup">注册</a></li>
+          <li><a href="#signin" class="tab" data-target="signin">登录</a></li>
+        </ul>
+
+        <div class="sign-groups signup-group" id="signup">
+          <form action="/signup" method="POST" class="input-groups">
+            <input type="text" name="username" id="signup-username-input" placeholder="用户名" required />
+            <input type="text" name="invitetoken" id="signup-invitetoken-input" placeholder="邀请码" required />
+            <input type="text" name="email" id="signup-email-input" placeholder="邮箱" required />
+            <input type="password" name="password" id="signup-password-input" placeholder="密码（不少于6位）" required />
+          </form>
+
+          <div class="alert alert-danger tips" id="signup-tips" role="alert" hidden>
+            用户名已存在
+          </div>
+          
+          <div class="button-wrapper command">
+            <button type="submit" id="btn-signup">注册</button>
+          </div>
+          <div class="hint">
+            <small><a href="">获取邀请码</a></small>
+          </div>
+
+        </div>
+
+        <div class="sign-groups signin-group" id="signin" hidden>
+          <form action="/signin" method="POST" class="input-groups">
+            <input type="text" name="username" id="signin-username-input" placeholder="用户名" required />
+            <input type="password" name="password" id="signin-password-input" placeholder="密码" required />
+          </form>
+          <div class="alert alert-danger tips" id="signin-tips" role="alert" hidden>
+            用户名与密码匹配失败！
+          </div>
+          <div class="button-wrapper command">
+            <button type="submit" id="btn-signin">登录</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block tail-js %}
+
+<script src="/static/js/sha256.js"></script>
+<script src="/static/js/index.js"></script>
+
+{% endblock %}

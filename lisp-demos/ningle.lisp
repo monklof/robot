@@ -1,4 +1,6 @@
 ;; 结论: ningle太轻量级, 没有模板系统, web处理流程不完整(request, response操作方式不明晰)
+;; install:
+;; (ql:quickload :ningle)
 
 (defvar *app*  (make-instance 'ningle:<app> ))
 

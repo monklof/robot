@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="item-list">
+  {% for item in items %}
+  <div class="panel panel-default item" data-item-id="{{item.id}}">
+    <div class="panel-heading item-heading">
+      <h3 class="panel-title item-title">{{item.title}}</h3>
+	  <div class="pull-right command-box">
+	    <div class="command cmd-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+	    <div class="command cmd-star"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></div>
+	    <div class="command cmd-done"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+  	  </div></div>
+      <div class="item-content" style="display:none;">
+        <div class="panel-body">
+          {{item.content|safe}}
+        </div>
+
+        <div class="panel-footer">
+          <a href="{{item.full_url}}" target="_blank">{{item.full_url}}</a>
+	      <div class="pull-right command-box">
+            <div class="command cmd-delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+	        <div class="command cmd-star"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></div>
+	        <div class="command cmd-done"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+  	      </div>
+        </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock%}

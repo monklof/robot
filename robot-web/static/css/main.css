@@ -1,0 +1,29 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+.command {
+    display: inline-block;
+    padding: 0px 6px 0px 0;
+    font-size: 16px;
+    color: #B2B2B2;
+}
+
+.command-box {
+    position: relative;
+    right: -2px;
+}
+
+.item-title {
+    display: inline-block;
+}
+
+.item-heading:hover {
+    cursor: pointer;
+}
+
+.command:hover {
+    color: #313131;
+    cursor: pointer;
+}
