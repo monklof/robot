@@ -20,7 +20,7 @@
 (builder
  (:static
   :path (lambda (path)
-          (if (ppcre:scan "^/static(?:/images/|/css/|/js/|/robot\\.txt$|/favicon\\.ico$)" path)
+          (if (ppcre:scan "^/static(?:/images/|/css/|/js/|/fonts/|/robot\\.txt$|/favicon\\.ico$)" path)
               (progn
                (format t "~a" (subseq path (length "/static")))
                (subseq path (length "/static")))

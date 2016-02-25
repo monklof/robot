@@ -9,7 +9,10 @@
            :user-create
            :search-all-user
            :check-invite-token
-           :use-invite-token))
+           :use-invite-token
+           :user
+           :user-id
+           :get-user-item))
 (in-package :robot-web.model)
 
 
@@ -52,7 +55,12 @@
                                        :password password
                                        :email email
                                        :role role
-                                       :avatar_url avatar-url)))))
+                                       :avatar_url avatar-url)))
+                   (retrieve-one
+                    (select :*
+                            (from :user)
+                            (where (:= :username username)))
+                    :as 'user)))
 
 
 (defun search-all-user ()
@@ -81,6 +89,34 @@
   T)
 
 
-                                       
-                   
-                                        
+;;;; item
+
+
+@model
+(defstruct item
+  id
+  title-hash
+  title
+  content
+  full-url
+  author
+  author-url
+  created-at
+  updated-at
+  site-id)
+
+(defconstant +UNREAD+ 1 "未读")
+(defconstant +DONE+ 2 "已读")
+(defconstant +STAR+ 4 "喜欢")
+(defconstant +DELETE+ 4 "删除")
+
+(defun get-user-item (user-id &key (state +UNREAD+))
+  (with-connection (db)
+                   (retrieve-all
+                    (select :item.*
+                            (from :item)
+                            (join :user_item :on (:= :user_item.item_id :item.id))
+                            (where (:and
+                                    (:= :user_item.user_id user-id)
+                                    (:= :user_item.state state)))
+                            (order-by :item.id)))))

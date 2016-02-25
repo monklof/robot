@@ -1,3 +1,7 @@
+--- 以下数据皆为清洗干净，安全，准备好供线上使用的数据。
+--- 原始数据不存在此表中。
+
+
 CREATE TABLE `user` (
        id             integer(10) AUTO_INCREMENT,
        username       varchar(64) UNIQUE NOT NULL,
@@ -15,8 +19,10 @@ CREATE TABLE `item` (
        id           integer(10) AUTO_INCREMENT,
        title_hash varchar(128) NOT NULL DEFAULT "" UNIQUE,
        title        varchar(1024) NOT NULL COMMENT "文章标题",
-       content      varchar(1024) NOT NULL COMMENT "文章内容（经过安全格式化处理的）",
+       content      text NOT NULL COMMENT "文章内容（经过安全格式化处理的）",
        full_url     varchar(1024) NOT NULL COMMENT "文章链接",
+       author       varchar(64) DEFAULT "" COMMENT "作者",
+       author_url   varchar(1024) DEFAULT "" COMMENT "作者链接",
        created_at   datetime    NOT NULL COMMENT "创建时间",
        updated_at   datetime    NOT NULL COMMENT "更新时间",
        site_id         integer(10) NOT NULL COMMENT "文章来源站点",

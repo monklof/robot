@@ -38,23 +38,16 @@
 ;; 3. how to get other env info?
 ;; 4. how to structure a response?
 
-
-@route POST "/signin2"
-(defun signin2 (&key |username| |password|)
-  `(200
-    (:content-type "application/json")
-    ,(if (user-check-pwd |username| |password|)
-        "{\"result\":\"success\", \"data\":\"登录成功\"}"
-       "{\"result\":\"error\", \"data\":\"用户名和密码不匹配\"}")))
-
 @route POST "/signin"
 (defun signin (&key |username| |password|)
-  (render-json
-   (if (not (user-check-pwd |username| |password|))
-       '(:|success| nil :|msg| "用户名密码不匹配！")
-     (progn
-       (setf (gethash :username *session*) |username|)
-       '(:|success| T :|msg| "登录成功")))))
+  (let ((user (user-check-pwd |username| |password|)))
+    (render-json
+     (if (not user)
+         '(:|success| nil :|msg| "用户名密码不匹配！")
+       (progn
+         (setf (gethash :username *session*) |username|)
+         (setf (gethash :id *session*) (user-id user))
+         '(:|success| T :|msg| "登录成功"))))))
 
 @route POST "/signup"
 (defun signup (&key |username| |password| |email| |invitetoken|)
@@ -75,24 +68,29 @@
         (render-json '(:|success| nil
                         :|msg| "邀请码不存在或已失效"))))
   (use-invite-token |invitetoken|)
-  (user-create :username |username|
+  (let ((user (user-create :username |username|
                :password |password|
                :email |email|
-               :avatar-url "")
-  (setf (gethash :username *session*) |username|)
+               :avatar-url "")))
+    (setf (gethash :username *session*) |username|)
+    (setf (gethash :id *session*) (user-id user)))
   (render-json '(:|success| T
                   :|msg| "注册成功"
                   :|data| |username|)))
 
 @route GET "/session"
 (defun session ()
-  (render-json `(:|username| ,(gethash :username *session*))))
+  (render-json `(:|username| ,(gethash :username *session*)
+                  :|id| ,(gethash :id *session*))))
 
 @route GET "/home"
 (defun home-page ()
-  (let ((username (gethash :username *session*)))
+  (let ((username (gethash :username *session*))
+        (userid (gethash :id *session*)))
     (if username
-        (render #P"home.html" `(:username ,username :page "home"))
+        (render #P"home.html" `(:username ,username
+                                          :page "home"
+                                          :items ,(get-user-item userid)))
       ;; redirect to home page
       (redirect "/" 302))))
 
@@ -115,6 +113,7 @@
 @route GET "/signout"
 (defun signout ()
   (setf (gethash :username *session*) nil)
+  (setf (gethash :id *session*) nil)
   (redirect "/" 302))
 
 ;;
