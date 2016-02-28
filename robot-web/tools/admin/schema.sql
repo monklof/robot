@@ -15,6 +15,14 @@ CREATE TABLE IF NOT EXISTS `user` (
        KEY(`email`))
        DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "用户基本信息";
 
+CREATE TABLE IF NOT EXISTS `site`(
+       id       integer(10) AUTO_INCREMENT,
+       `name`   varchar(128) NOT NULL,
+       url      varchar(256) NOT NULL,
+       description varchar(256) NOT NULL,
+       ico_url  varchar(128),
+       PRIMARY KEY(`id`)) DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "站点信息";
+
 CREATE TABLE IF NOT EXISTS `item` (
        id           integer(10) AUTO_INCREMENT,
        title_hash varchar(128) NOT NULL DEFAULT "" UNIQUE,
@@ -30,14 +38,6 @@ CREATE TABLE IF NOT EXISTS `item` (
        KEY(title_hash),
        CONSTRAINT `FK_SITE` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`)
        ) DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "所有文章表，一个url是一篇文章";
-
-CREATE TABLE IF NOT EXISTS `site`(
-       id       integer(10) AUTO_INCREMENT,
-       `name`   varchar(128) NOT NULL,
-       url      varchar(256) NOT NULL,
-       description varchar(256) NOT NULL,
-       ico_url  varchar(128),
-       PRIMARY KEY(`id`)) DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "站点信息";
 
 CREATE TABLE IF NOT EXISTS `user_item` (
        id            integer(10) AUTO_INCREMENT,

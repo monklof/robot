@@ -10,7 +10,7 @@ __author__ = 'frostpeng'
  
 engine = create_engine("mysql+mysqlconnector://robot:RoBOt%.%@localhost:3306/robot_web")
 # support emoji(utf8mb4) 
-engine.execute("set names utf8mb4;")
+# engine.execute("set names utf8mb4;")
 MapBase = declarative_base(bind=engine)
 DBSession = sessionmaker(bind=engine)
 
