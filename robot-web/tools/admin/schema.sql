@@ -1,8 +1,8 @@
---- 以下数据皆为清洗干净，安全，准备好供线上使用的数据。
---- 原始数据不存在此表中。
+# 以下数据皆为清洗干净，安全，准备好供线上使用的数据。
+# 原始数据不存在此表中。
 
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
        id             integer(10) AUTO_INCREMENT,
        username       varchar(64) UNIQUE NOT NULL,
        email          varchar(64) UNIQUE NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `user` (
        KEY(`email`))
        DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "用户基本信息";
 
-CREATE TABLE `item` (
+CREATE TABLE IF NOT EXISTS `item` (
        id           integer(10) AUTO_INCREMENT,
        title_hash varchar(128) NOT NULL DEFAULT "" UNIQUE,
        title        varchar(1024) NOT NULL COMMENT "文章标题",
@@ -31,7 +31,7 @@ CREATE TABLE `item` (
        CONSTRAINT `FK_SITE` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`)
        ) DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "所有文章表，一个url是一篇文章";
 
-CREATE TABLE `site`(
+CREATE TABLE IF NOT EXISTS `site`(
        id       integer(10) AUTO_INCREMENT,
        `name`   varchar(128) NOT NULL,
        url      varchar(256) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `site`(
        ico_url  varchar(128),
        PRIMARY KEY(`id`)) DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "站点信息";
 
-CREATE TABLE `user_item` (
+CREATE TABLE IF NOT EXISTS `user_item` (
        id            integer(10) AUTO_INCREMENT,
        user_id       integer(10),
        item_id       integer(10),
@@ -50,7 +50,7 @@ CREATE TABLE `user_item` (
        CONSTRAINT `FK_ITEM` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`))
        DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "用户文章表";
 
-CREATE TABLE `invitetoken` (
+CREATE TABLE IF NOT EXISTS `invitetoken` (
        id            integer(10) AUTO_INCREMENT,
        token         varchar(128) NOT NULL,
        max_use       integer(10) NOT NULL DEFAULT 10,
@@ -58,12 +58,12 @@ CREATE TABLE `invitetoken` (
        PRIMARY KEY(`id`))
        DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "邀请码";
 
-CREATE TABLE `sessions` (
+CREATE TABLE IF NOT EXISTS `sessions` (
        id            integer(20) AUTO_INCREMENT,
        session_data  varchar(2048),
        PRIMARY KEY (`id`))
        DEFAULT CHARSET=utf8 ENGINE=Innodb COMMENT "Caveman用来存储会话信息";
 
--- 行为分析通过解析日志来实现，不在程序中打点了。
+## 行为分析通过解析日志来实现，不在程序中打点了。
 
--- 花了一个小时来做这个数据库模型设计，究竟有没有必要呢。还是干脆用一个非关系型数据库快速搞起来就好了。
+## 花了一个小时来做这个数据库模型设计，究竟有没有必要呢。还是干脆用一个非关系型数据库快速搞起来就好了。
