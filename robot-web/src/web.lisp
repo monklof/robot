@@ -96,19 +96,54 @@
 
 @route GET "/done"
 (defun done-page ()
-  (let ((username (gethash :username *session*)))
+  (let ((username (gethash :username *session*))
+        (userid (gethash :id *session*)))
     (if username
-        (render #P"done.html" `(:username ,username :page "done"))
+        (render #P"done.html" `(:username ,username
+                                          :page "done"
+                                          :items ,(get-user-item userid :state +DONE+)))
       ;; redirect to home page
       (redirect "/" 302))))
 
 @route GET "/stars"
 (defun stars-page ()
-  (let ((username (gethash :username *session*)))
+  (let ((username (gethash :username *session*))
+        (userid (gethash :id *session*)))
     (if username
-        (render #P"stars.html" `(:username ,username :page "stars"))
+        (render #P"stars.html" `(:username ,username
+                                          :page "stars"
+                                          :items ,(get-user-item userid :state +STAR+)))
       ;; redirect to home page
       (redirect "/" 302))))
+
+@route GET "/item/:id"
+(defun stars-page (&key id)
+  (let ((username (gethash :username *session*)))
+    (if username
+        (progn
+          (setf (getf (response-headers *response*) :x-frame-options) "SAMEORIGIN")
+          (render #P"item-page.html" `(:item ,(get-item id))))
+          
+      ;; redirect to home page
+      (redirect "/" 302))))
+
+
+
+@route POST "/item/markas"
+(defun api-mark-as (&key |command| |item-id|)
+  (let ((userid (gethash :id *session*))
+        (state (cond
+                ((equal |command| "DELETE") +DELETE+)
+                ((equal |command| "DONE") +DONE+)
+                ((equal |command| "STAR") +STAR+)
+                (T -1))))
+    (if (and userid (not (= state -1)))
+        (progn
+          (set-user-item-state userid |item-id| state)
+          (render-json '(:|success| T :|msg| "")))
+      (render-json '(:|success| NIL :|msg| "未登录或参数不合法")))))
+      
+  
 
 @route GET "/signout"
 (defun signout ()
