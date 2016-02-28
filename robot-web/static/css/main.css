@@ -27,3 +27,8 @@ body {
     color: #313131;
     cursor: pointer;
 }
+
+.item-iframe{
+    width: 100%;
+    border: none;
+}

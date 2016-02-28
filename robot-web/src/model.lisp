@@ -12,7 +12,13 @@
            :use-invite-token
            :user
            :user-id
-           :get-user-item))
+           :get-user-item
+           :set-user-item-state
+           :+UNREAD+
+           :+STAR+
+           :+DONE+
+           :+DELETE+
+           :get-item))
 (in-package :robot-web.model)
 
 
@@ -120,3 +126,20 @@
                                     (:= :user_item.user_id user-id)
                                     (:= :user_item.state state)))
                             (order-by :item.id)))))
+
+(defun get-item (item-id)
+  (with-connection (db)
+                   (retrieve-one
+                    (select :*
+                            (from :item)
+                            (where (:= :id item-id))))))
+
+(defun set-user-item-state (user-id item-id state)
+  ;; TODO: check if state is valid
+  (with-connection (db)
+                   (execute
+                    (update :user_item
+                            (set= :state state)
+                            (where (:and
+                                    (:= :user_id user-id)
+                                    (:= :item_id item-id)))))))
