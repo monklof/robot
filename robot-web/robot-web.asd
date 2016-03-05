@@ -25,7 +25,8 @@
 
                ;; for DB
                :datafly
-               :sxql)
+               :sxql
+	       :cl-dbi )
   :components ((:module "src"
                 :components
                 ((:file "main" :depends-on ("config" "view" "db"))

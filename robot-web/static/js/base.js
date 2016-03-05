@@ -34,9 +34,9 @@ $(".item-list").delegate(".command", "click", function(evt){
         itemId = itemObj.data("itemId"), command=undefined;
     if (targetObj.hasClass("cmd-delete"))
         command = DELETE;
-    if (targetObj.hasClass("cmd-star"))
+    else if (targetObj.hasClass("cmd-star"))
         command = STAR;
-    if (targetObj.hasClass("cmd-done"))
+    else if (targetObj.hasClass("cmd-done"))
         command = DONE;
     else{
         console.log("unrecogniced command");

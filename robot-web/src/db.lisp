@@ -18,5 +18,7 @@
   (apply #'connect-cached (connection-settings db)))
 
 (defmacro with-connection (conn &body body)
-  `(let ((*connection* ,conn))
+  `(let* ((*connection* ,conn) 
+          (_query (dbi:prepare *connection* "SET names 'utf8';") )
+          (_result (dbi:execute _query)))
      ,@body))
