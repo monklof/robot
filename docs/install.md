@@ -18,7 +18,7 @@ sudo apt-get install install rlwrap
 
 ln -s ~/robot/robot-web ~/quicklisp/local-projects/robot-web
 
-使用`rlwrap sbcl`进入REPL
+使用`rlwrap sbcl`进入lisp REPL，启动服务器。
 
 ```sbcl
 ;; load robot-web
@@ -26,5 +26,21 @@ ln -s ~/robot/robot-web ~/quicklisp/local-projects/robot-web
 ;; set envirment to set the application in production mode
 (sb-posix:putenv "APP_ENV=production")
 ;; start 
-(robot-web:start )
+(robot-web:start :debug nil)
+```
+
+4. 其他环境部署
+
+创建日志目录: /home/robot/logs
+
+
+5. 部署后端抓取服务
+
+以上步骤将robot-web项目部署起来了。
+
+现在部署robot-crawler，`crontab -e`
+
+内容
+```bash
+python3 /home/robot/robot/robot-crawler/V2exRequest.py && python3 /home/robot/robot/robot-mining-bot/v2ex_recommend.py > /home/robot/logs/run.log 2>&1
 ```

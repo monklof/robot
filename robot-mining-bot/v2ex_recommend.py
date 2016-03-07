@@ -9,8 +9,15 @@ v0.1: v2ex文章全量推送
 
 from models import *
 import hashlib
-import sys
+import sys, os
 import datetime
+import contextlib
+import logging
+from sqlalchemy.sql import select
+
+
+PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
+sys.path.append(PROJECT_ROOT)
 
 def _hash_title(title):
     return hashlib.sha256(title.encode()).hexdigest()
@@ -65,15 +72,37 @@ def populate_recommendation_for(user_id):
                 new_items.append(item)
 
         for item in new_items:
-            print("%d: %s" % (user_id, item.title))
+            logging.debug("%d: %s" % (user_id, item.title))
             s.add(UserItem(user_id=user_id, item_id=item.id))
         s.commit()
 
-def recommendation_daily(user_id):
-    """生成每日推荐"""
+def recommend_for_user(user_id):
+    """为单个用户生成每日推荐"""
+
+
+def recommendation_daily_main():
+    """为每个用户生成每日推荐"""
+    logging.info("generating recommendations for all of the users ...")
+
+    logging.info("fetching latest item data ...")
     items = extract_and_clean_v2ex_data()
     merge_item_to_database(items)
-    populate_recommendation_for(user_id)
+
+    logging.info("populating ... ")
+    with contextlib.closing(engine.connect()) as conn:
+        expr = select([User.id])
+        result = conn.execute(expr)
+        users = [row[0] for row in result]
+        
+    logging.info("users: %s", users)
+
+    for userid in users:
+        logging.info("populating for user: %d", userid)
+        populate_recommendation_for(userid)
+    
+
 
 if __name__ == "__main__":
-    recommendation_daily(int(sys.argv[1]))
+    from utils.outputdependhandler import init_logger
+    init_logger()
+    recommendation_daily_main()

@@ -36,6 +36,18 @@ class Article(MapBase):
     source=Column(Integer,default=0)
     source_name=Column(Text,nullable=True)
 
+
+class User(MapBase):
+
+    __tablename__ = "user"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(64), unique=True, nullable=False)
+    email = Column(String(64), unique=True, nullable=False)
+    password = Column(String(2048), nullable=False)
+    role = Column(Integer, nullable=False)
+    avatar_url = Column(String(2048), default="")
+    
 class Item(MapBase):
 
     __tablename__ = "item"
